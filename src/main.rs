@@ -140,6 +140,11 @@ fn main() -> nResult<()> {
                 notification.appname(&appname);
             }
 
+            #[cfg(not(all(unix, not(target_os = "macos"))))]
+            {
+                notification.show()?;
+                Ok(())
+            }
             #[cfg(all(unix, not(target_os = "macos")))]
             {
                 let LinuxArgs {
